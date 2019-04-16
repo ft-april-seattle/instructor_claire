@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Show All Users</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1 class="display-4">All Users</h1>
+        <table class="table table-sm table-striped">
+            <thead>
+                <th>ID #</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Created At</th>
+                <th>Actions</th>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user['id'] }}</td>
+                    <td>{{ user['first_name'] }} {{ user['last_name'] }}</td>
+                    <td>{{ user['email'] }}</td>
+                    <td>{{ user['created_at'] }}</td>
+                    <td>
+                        <a href="/users/{{user['id']}}/show" class="badge badge-primary">Show</a>
+                        <a href="/users/{{user['id']}}/edit" class="badge badge-secondary">Edit</a>
+                        <a href="/users/{{user['id']}}/delete" class="badge badge-danger">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/users/new" class="btn btn-success" role="button">Add New User</a>
+    </div>
+</body>
+</html>

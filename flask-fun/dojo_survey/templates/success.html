@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Survey Results</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="display-4">Survey Results</h1>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td><b>Name</b></td>
+                    <td>{{ client_data['client_name'] }}</td>
+                </tr>
+                <tr>
+                    <td><b>Dojo Location</b></td>
+                    <td>{{ client_data['location'] }}</td>
+                </tr>
+                <tr>
+                    <td><b>Favorite Language</b></td>
+                    <td>{{ client_data['language'] }}</td>
+                </tr>
+                <tr>
+                    <td><b>Comments</b></td>
+                    <td>{{ client_data['comments'] }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

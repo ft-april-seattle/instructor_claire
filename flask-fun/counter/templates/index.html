@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Counter</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container text-center">
+        <h1 class="display-4">Counter</h1>
+        <p>{{ session['counter'] }} time(s)</p>
+        <form style="display:inline-block;" action="/add_two" method="post">
+            <input type="number" name="count">
+            <button class="btn btn-warning" type="submit">Add Time(s)</button>
+        </form>
+        <a href="/clear" class="btn btn-primary" role="button">Reset</a>
+    </div>
+</body>
+</html>

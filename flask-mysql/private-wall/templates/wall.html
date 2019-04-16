@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Private Wall</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Private Wall</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <span class="navbar-text">
+                Welcome, {{session['greeting']}} <a href="/logout" role="button" class="btn btn-info">Logout</a>
+            </span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h1># Message(s) for You!</h1>
+                {% for message in messages %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-9">
+                                <h4>{{message['first_name']}} said</h4>
+                                <p>{{message['content']}}</p>
+                        </div>
+                        <div class="col-3">
+                            <a href="/delete/{{message['id']}}" role="button" class="btn btn-sm btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-6">
+                <h1>Send Messages</h1>
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p style="color: red; font-size: .8em;">{{message}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                {% for user in users %}
+                {% if user['id'] != session['user_id'] %}
+                    <form action="/create" method="post">
+                        <input type="hidden" name="to_user" value="{{user['id']}}">
+                        <table class="table table-sm">
+                            <tbody>
+                                <td>{{user['first_name']}}</td>
+                                <td><input type="text" class="form-control" name="content"></td>
+                                <td><button type="submit" class="btn btn-sm btn-primary">Send</button></td>
+                            </tbody>
+                        </table>
+                    </form>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

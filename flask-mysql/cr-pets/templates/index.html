@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>C+R Pets</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- SHOW ALL PETS -->
+    <div class="container">
+        <h1 class="display-4">Show All Pets</h1>
+        <table class="table table-sm">
+            <thead>
+                <th>#</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Created At</th>
+            </thead>
+            <tbody>
+                {% for pet in pets %}
+                <tr>
+                    <td>{{ pet['id'] }}</td>
+                    <td>{{ pet['pet_name'] }}</td>
+                    <td>{{ pet['pet_type'] }}</td>
+                    <td>{{ pet['created_at'].strftime('%m/%d/%Y') }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div><!-- /SHOW ALL PETS -->
+
+    <!-- CREATE PETS -->
+    <div class="container">
+        <h1 class="display-4">Create a Pet</h1>
+        <form action="/create" method="post">
+            <div class="form-group">
+                <label for="pet_name">Name</label>
+                <input type="text" class="form-control" name="pet_name">
+            </div>
+            <div class="form-group">
+                <label for="pet_type">Type</label>
+                <input type="text" class="form-control" name="pet_type">
+            </div>
+            <button type="submit" class="btn btn-info">Submit</button>
+        </form>
+    </div>
+</body>
+
+</html>
