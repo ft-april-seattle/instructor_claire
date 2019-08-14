@@ -35,7 +35,8 @@ def login(request):
 def show_all(request):
     
     context = {
-        'all_books': Book.objects.all()
+        'all_books': Book.objects.all(),
+        'this_user': User.objects.get(id=request.session['user_id'])
     }
     return render(request, 'books/show_all.html', context)
 

@@ -21,14 +21,14 @@
             <tbody>
                 {% for user in users %}
                 <tr>
-                    <td>{{ user['id'] }}</td>
+                    <td>{{ user['user_id'] }}</td>
                     <td>{{ user['first_name'] }} {{ user['last_name'] }}</td>
                     <td>{{ user['email'] }}</td>
                     <td>{{ user['created_at'] }}</td>
                     <td>
-                        <a href="/users/{{user['id']}}/show" class="badge badge-primary">Show</a>
-                        <a href="/users/{{user['id']}}/edit" class="badge badge-secondary">Edit</a>
-                        <a href="/users/{{user['id']}}/delete" class="badge badge-danger">Delete</a>
+                        <a href="/users/{{ user['user_id'] }}" class="badge badge-primary">Show</a>
+                        <a href="/users/{{ user['user_id'] }}/edit" class="badge badge-secondary">Edit</a>
+                        <a href="/users/{{ user['user_id'] }}/delete" class="badge badge-danger">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}

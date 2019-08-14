@@ -12,7 +12,7 @@
 
 <body>
     <div class="container">
-        <h1 class="display-4">User {{ user['id'] }}</h1>
+        <h1 class="display-4">User {{ user['user_id'] }}</h1>
         <table class="table-sm">
             <tbody>
                 <tr>
@@ -33,8 +33,8 @@
                 </tr>
             </tbody>
         </table>
-        <a href="/users/{{user['id']}}/edit" class="badge badge-secondary">Edit</a>
-        <a href="/users/{{user['id']}}/delete" class="badge badge-danger">Delete</a>
+        <a href="/users/{{ user['user_id'] }}/edit" class="badge badge-secondary">Edit</a>
+        <a href="/users/{{ user['user_id'] }}/delete" class="badge badge-danger">Delete</a>
         <a href="/users" role="button" class="badge badge-info">Go Back</a>
     </div>
 </body>
