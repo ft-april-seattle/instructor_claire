@@ -19,7 +19,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <span class="navbar-text">
-                Welcome, {{session['greeting']}} <a href="/logout" role="button" class="btn btn-info">Logout</a>
+                Welcome, LOGGED IN USER'S NAME <a href="/logout" role="button" class="btn btn-info">Logout</a>
             </span>
         </div>
     </nav>
@@ -28,42 +28,41 @@
         <div class="row">
             <div class="col-6">
                 <h1># Message(s) for You!</h1>
-                {% for message in messages %}
                 <div class="container">
                     <div class="row">
+                        {% for msg in messages %}
                         <div class="col-9">
-                                <h4>{{message['first_name']}} said</h4>
-                                <p>{{message['content']}}</p>
+                            <h4>{{ msg['first_name'] }} said</h4>
+                            <p>{{ msg['content'] }}</p>
                         </div>
                         <div class="col-3">
-                            <a href="/delete/{{message['id']}}" role="button" class="btn btn-sm btn-danger">Delete</a>
+                            <a href="/delete/{{ msg['id'] }}/{{ msg['to_user'] }}" role="button" class="btn btn-sm btn-danger">Delete</a>
                         </div>
+                        {% endfor %}
                     </div>
                 </div>
-                {% endfor %}
+
             </div>
             <div class="col-6">
                 <h1>Send Messages</h1>
                 {% with messages = get_flashed_messages() %}
                     {% if messages %}
                         {% for message in messages %}
-                            <p style="color: red; font-size: .8em;">{{message}}</p>
+                            <p style="color: red; font-size: .8rem;">{{message}}</p>
                         {% endfor %}
                     {% endif %}
                 {% endwith %}
                 {% for user in users %}
-                {% if user['id'] != session['user_id'] %}
-                    <form action="/create" method="post">
-                        <input type="hidden" name="to_user" value="{{user['id']}}">
-                        <table class="table table-sm">
-                            <tbody>
-                                <td>{{user['first_name']}}</td>
-                                <td><input type="text" class="form-control" name="content"></td>
-                                <td><button type="submit" class="btn btn-sm btn-primary">Send</button></td>
-                            </tbody>
-                        </table>
-                    </form>
-                    {% endif %}
+                <form action="/create" method="post">
+                    <table class="table table-sm">
+                        <tbody>
+                            <td>{{ user['first_name'] }}</td>
+                            <input type="hidden" value="{{ user['id'] }}" name="to_user">
+                            <td><input type="text" class="form-control" name="content"></td>
+                            <td><button type="submit" class="btn btn-sm btn-primary">Send</button></td>
+                        </tbody>
+                    </table>
+                </form>
                 {% endfor %}
             </div>
         </div>

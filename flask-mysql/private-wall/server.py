@@ -1,9 +1,10 @@
 from flask import Flask, render_template, redirect, request, session, flash
-import re
 from mysqlconnection import connectToMySQL
 from flask_bcrypt import Bcrypt
+import re
 
-EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+DATABASE = 'private_wall'
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -75,45 +76,50 @@ def login():
 
 @app.route('/wall')
 def wall():
-    if not 'user_id' in session:
-        return redirect('/')
-    else:
-        mysql = connectToMySQL('private_wall')
-        all_users = mysql.query_db("SELECT * FROM users;")
+    # display a template and show logged in user's received messages and list out users to send messages to
+    mysql = connectToMySQL(DATABASE)
+    query = "SELECT * FROM users;"
+    all_users = mysql.query_db(query) # all data comes back as a list (aka array) of dictionaries
 
-        mysql = connectToMySQL('private_wall')
-        all_messages = mysql.query_db(f"SELECT users.first_name, messages.id, messages.content, messages.created_at FROM messages JOIN users ON messages.from_user = users.id WHERE messages.to_user = {session['user_id']};")
-        print(all_messages)
-        return render_template("wall.html", users=all_users, messages=all_messages)
+    mysql = connectToMySQL(DATABASE)
+    query = "SELECT * FROM messages JOIN users ON messages.from_user = users.id WHERE to_user = %(id)s;"
+    data = {
+        'id': session['user_id']
+    }
+    all_messages = mysql.query_db(query,data)
+    print(all_messages)
+    return render_template("wall.html", users=all_users,messages = all_messages)
 
 @app.route('/create', methods=['POST'])
 def create():
     is_valid = True
 
     if len(request.form['content']) < 5:
-        flash("Message must be at least 5 characters long.")
+        flash("Messages must be at least 5 characters long.")
         is_valid = False
-    
+
     if is_valid == True:
-        mysql = connectToMySQL('private_wall')
-        query = "INSERT INTO messages (content, to_user, from_user, created_at, updated_at) VALUES (%(cn)s, %(tu)s, %(fu)s, NOW(), NOW());"
+        mysql = connectToMySQL(DATABASE)
+        query = "INSERT INTO messages (content,to_user,from_user,created_at,updated_at) VALUES (%(msg)s,%(to)s,%(from)s,NOW(),NOW());"
         data = {
-            "cn": request.form['content'],
-            "tu": int(request.form['to_user']),
-            "fu": int(session['user_id'])
+            'msg': request.form['content'],
+            'to': request.form['to_user'],
+            'from': session['user_id']
         }
         mysql.query_db(query,data)
+
     return redirect('/wall')
 
-@app.route('/delete/<id>')
-def delete(id):
-    mysql = connectToMySQL('private_wall')
-    query = "DELETE FROM messages WHERE id = %(id)s;"
-    data = {
-        "id": int(id)
-    }
+@app.route('/delete/<id>/<usr>')
+def delete(id,usr):
+    if session['user_id'] == usr:
+        mysql = connectToMySQL(DATABASE)
+        query = "DELETE FROM messages WHERE id = %(id)s;"
+        data = {
+            'id': id
+        }
+        mysql.query_db(query,data)
 
-    mysql.query_db(query,data)
     return redirect('/wall')
 
 @app.route('/logout')
