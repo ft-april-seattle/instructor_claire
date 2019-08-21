@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>The Wall</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <h1 class="navbar-brand">Coding Dojo Wall</h1>
+        <span class="text-white">Welcome back, {{session['greeting']}}</span>
+        <a href="/logout" class="btn btn-info btn-sm my-2 my-sm-0 text-white" role="button">Logout</a>
+    </nav>
+    <div class="container">
+        <h3>Post a Message</h3>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p style="color: red; font-size: .75rem;">{{message}}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form action="/create" method="post">
+            <textarea class="form-control" name="content" cols="15" rows="5"></textarea>
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+        <div class="content">
+            {% for msg in messages %}
+                <h5>{{msg['first_name']}} {{msg['last_name']}}</h5>
+                <p class="mb-0">{{ msg['content'] }}</p>
+                <p class="mb-2"><small>posted on {{ msg['created_at'].strftime('%b %d %Y, %I:%M %p') }}</small></p>
+                {% for cmt in comments %}
+                    {% if cmt.message_id == msg['id'] %}
+                        <p class="mb-0">{{cmt['content']}}</p>
+                        <p><small>comment by {{cmt['first_name']}} {{cmt['last_name']}} - {{cmt['created_at']}}</small></p>
+                    {% endif %}
+                {% endfor %}
+                <form action="/comment" method="post">
+                    <input type="hidden" name="msg_id" value="{{ msg['id'] }}">
+                    <input type="text" class="form-control w-50" name="content">
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </form>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>

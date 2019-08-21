@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'renders/style.css' %}">
+</head>
+<body>
+    <h1>Hello!</h1>
+
+    <p>{{ user.name }} {{ request.session.user_id }}</p>
+
+    Hobbies:
+    {% for hobby in user.hobbies %}
+        <li>{{ hobby }}</li>
+    {% endfor %}
+
+    <form action="/process" method="post">
+        {% csrf_token %}
+    <input type="text" name="email">
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>
