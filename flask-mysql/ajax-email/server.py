@@ -11,8 +11,21 @@ app.secret_key = "Sooooo Seeecret"
 
 @app.route('/')
 def signin():
-    # displaying login/register forms for client to use
     return render_template("index.html")
+
+@app.route('/email', methods=['POST']) # STEP 3 - route is called and runs like normal
+def email():
+    print("I'm in email!!!")
+    flag = False
+    mysql = connectToMySQL(DATABASE)
+    query = "SELECT * FROM users WHERE email = %(em)s;"
+    data = {
+        'em': request.form['email']
+    }
+    result = mysql.query_db(query,data)
+    if len(result) > 0:
+        flag = True
+    return render_template('partials/message.html', flag=flag) # we send back a snippet of HTML to the ajax request
 
 @app.route('/register',methods=['POST'])
 def register():
