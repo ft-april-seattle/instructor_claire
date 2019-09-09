@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>All Teh Catz</title>
+</head>
+<body>
+    <div class="container">
+        <img style="height: 50%; border-radius: 50%" src="/img/<%= kitty.name %>.jpg" alt="picture of a cat`>
+        <div class="info">
+            <p>Favorite Food: <%= kitty.fav_food %></p>
+            <p>Age: <%= kitty.age %></p>
+            <p>Sleeping Spots:
+                <ul>
+                <% for(var spots of kitty.sleeping){ %>
+                    <li><%= spots %></li>
+                <% } %>
+            </ul>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
