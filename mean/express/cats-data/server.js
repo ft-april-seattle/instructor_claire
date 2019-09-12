@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const app = express(); // similar to flask, app = Flask(__name__)
 
 app.use(express.static(__dirname + "/static")); // creates path to static directory for express to look into
