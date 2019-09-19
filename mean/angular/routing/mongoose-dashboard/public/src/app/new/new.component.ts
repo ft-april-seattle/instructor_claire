@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class NewComponent implements OnInit {
   constructor(private _httpService: HttpService, private _router: Router) { }
   newShark: any;
-
+  errors: any;
   ngOnInit() {
     this.newShark = {name: "", species: "", location: "", img: ""};
   }
@@ -18,8 +18,12 @@ export class NewComponent implements OnInit {
   onSubmit(){
     this._httpService.createShark(this.newShark).subscribe(data => {
       console.log(data);
-      this.newShark = {name: "", species: "", location: "", img: ""};
-      this._router.navigate(['/sharks']);
+      if('errors' in data){
+        this.errors = data['errors'];
+      } else {
+        this.newShark = {name: "", species: "", location: "", img: ""};
+        this._router.navigate(['/sharks']);
+      }
     });
   }
 

@@ -1,10 +1,10 @@
 <div class="container">
   <form (submit)="onSubmit()">
-    <label for="name">Name</label>
+    <label for="name">Name <span *ngIf="errors.name.message">{{errors.name.message}}</span></label>
     <input class="form-control w-50" type="text" name="name" [(ngModel)]="newShark.name">
-    <label for="species">Species</label>
+    <label for="species">Species <span *ngIf="errors.species.message">{{errors.species.message}}</span></label>
     <input class="form-control w-50" type="text" name="species" [(ngModel)]="newShark.species">
-    <label for="location">Location</label>
+    <label for="location">Location <span *ngIf="errors.location.message">{{errors.location.message}}</span></label>
     <input class="form-control w-50" type="text" name="location" [(ngModel)]="newShark.location">
     <label for="img">Image URL</label>
     <input class="form-control w-50" type="text" name="img" [(ngModel)]="newShark.img">
