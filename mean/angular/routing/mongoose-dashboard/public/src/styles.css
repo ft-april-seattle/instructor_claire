@@ -1,0 +1,20 @@
+/* You can add global styles to this file, and also import other style files */
+.jumbotron-fluid,
+.jumbotron{
+    padding-bottom: 3.5rem;
+    background: url('assets/img/jumbotron-bg-3.jpg');
+    background-size: cover;   
+}
+.main-content,
+.image{
+    display: inline-block;
+    vertical-align: top;
+}
+.image img{
+    border-radius: 100%;
+    width: 300px;
+    margin-right: 20px;
+}
+.table td:nth-of-type(odd){
+    font-weight: bold;
+}

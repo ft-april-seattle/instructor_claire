@@ -1,0 +1,13 @@
+<div id="wrapper">
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4 text-white">All the Sharks!</h1>
+        <p class="lead text-white">Doo doo doo-do-do-dooo!</p>
+        <div class="text-center">
+            <button [routerLink]="['/sharks']" class="btn btn-light mr-2">View Sharks</button>
+            <button [routerLink]="['/sharks/new']" class="btn btn-light">Add New Shark</button>
+        </div>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>

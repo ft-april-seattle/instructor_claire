@@ -1,0 +1,9 @@
+<h3>All Sharks</h3>
+<div class="container mt-4 text-center">
+    <div class="row text-center">
+        <div *ngFor="let shark of sharks" class="col-lg-4 col-sm-6 text-center">
+            <img (click)="sharkToShow(shark)" src="./../../assets/img/{{shark.img}}">
+        </div>
+    </div>
+</div>
+<app-show-one *ngIf="selectedShark" [sharkToShow]="selectedShark"></app-show-one>

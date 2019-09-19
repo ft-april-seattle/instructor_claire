@@ -1,0 +1,13 @@
+<div class="container">
+  <form (submit)="onSubmit()">
+    <label for="name">Name</label>
+    <input class="form-control w-50" type="text" name="name" [(ngModel)]="newShark.name">
+    <label for="species">Species</label>
+    <input class="form-control w-50" type="text" name="species" [(ngModel)]="newShark.species">
+    <label for="location">Location</label>
+    <input class="form-control w-50" type="text" name="location" [(ngModel)]="newShark.location">
+    <label for="img">Image URL</label>
+    <input class="form-control w-50" type="text" name="img" [(ngModel)]="newShark.img">
+    <button class="btn btn-primary mb-3" type="submit">Create</button>
+  </form>
+</div>
