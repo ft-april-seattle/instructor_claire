@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 
+mongoose.set('runValidators', true);
 mongoose.connect('mongodb://localhost/celebirthday', {useNewUrlParser: true});
 
 // create a variable that points to the models folder
